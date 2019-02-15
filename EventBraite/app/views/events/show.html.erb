@@ -1,0 +1,21 @@
+<h1><%= @event.title %></h1>
+<p>Créé par <%= "#{@creator.first_name} #{@creator.last_name}" %></p>
+<p><%= @event.description %></p>
+<p><em>Nombre d'inscrit : <%= @participants.count %></em></p>
+<p>Commence le : <%= @event.start_date %></p>
+<p>Finis le : <%= @event.end_date %></p>
+<p><%= @event.location %></p>
+<p>Prix : <%= @event.price %> €</p>
+
+<% if is_not_linked_to?(@creator) %>
+<%= link_to "S'inscrire", new_event_charge_path(@event.id), class:"" %>
+<% elsif  is_creator?(@creator) %>
+<%= link_to "Gestion de l'évènement", event_attendances_path(@event.id), class:"" %>
+<% end -%>
+
+<h3>Avatar actuel</h3>
+<%if @event.avatar.attached?%>
+  <%= image_tag @event.avatar, alt: 'avatar' %>
+<%else%>
+  <p>=== Il n'y a pas encore d'avatar lié à cet utilisateur ===</p>
+<%end%>
